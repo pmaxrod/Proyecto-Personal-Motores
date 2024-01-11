@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 17f93f688926e4e4bb772f158e61104e
+  - enabled: 1
+    path: Assets/Scenes/EsquivarCubos.unity
+    guid: 6567b34dd0ca2f64c80187ad097f952d
   m_configObjects: {}
