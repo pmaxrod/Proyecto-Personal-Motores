@@ -146,8 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26c5c9d84c3c744abbb2c4136bd09ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  vidas: 0
+  speed: 10
+  vidas: 5
   puntuacion: 0
   textoPuntuacion: {fileID: 0}
   textoVidasRestantes: {fileID: 0}

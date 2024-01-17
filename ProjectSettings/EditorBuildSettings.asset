@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EsquivarCubos.unity
     guid: 6567b34dd0ca2f64c80187ad097f952d
+  - enabled: 1
+    path: Assets/Scenes/FinDeJuego.unity
+    guid: e5686e73d3e021347b0cad0223e5b113
   m_configObjects: {}

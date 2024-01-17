@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
 
     private float horizontalInput;
     private float horizontalBound = 10f;
-    //    private float verticalInput;
-    //    private float verticalBound = 7f;
+    private float verticalInput;
+    private float verticalBound = 5f;
 
     private string PLAYER_GAMEOBJECT_NAME = "Esfera";
 
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //playerRb = GameObject.Find(PLAYER_GAMEOBJECT_NAME).GetComponent<Rigidbody>();       
+        playerRb = GameObject.Find(PLAYER_GAMEOBJECT_NAME).GetComponent<Rigidbody>();
         instance = this;
         ActualizarVidas(vidas);
         ActualizarPuntuacion(puntuacion);
@@ -40,12 +40,15 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        //      verticalInput = Input.GetAxis("Vertical");
-        //playerRb.AddForce(Vector3.right * speed * horizontalInput * Time.deltaTime);
-        //      playerRb.AddForce(Vector3.forward * speed * verticalInput * Time.deltaTime);
-        transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
-        ConstrainPlayerPosition();
+        if (vidas > 0)
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+            verticalInput = Input.GetAxis("Vertical");
+            //playerRb.AddForce(Vector3.right * speed * horizontalInput * Time.deltaTime);
+            transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
+            transform.Translate(Vector3.forward * speed * verticalInput * Time.deltaTime);
+            ConstrainPlayerPosition();
+        }
     }
 
     private void ConstrainPlayerPosition()
@@ -59,26 +62,42 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(-horizontalBound, transform.position.y, transform.position.z);
         }
-        /*        if (transform.position.z > verticalBound)
-                {
-                    transform.position = new Vector3(transform.position.x, transform.position.y, verticalBound);
-                }
-                if (transform.position.z < -verticalBound)
-                {
-                    transform.position = new Vector3(transform.position.x, transform.position.y, -verticalBound);
-                }*/
+        if (transform.position.z > verticalBound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, verticalBound);
+        }
+        if (transform.position.z < -verticalBound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -verticalBound);
+        }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /* private void OnCollisionEnter(Collision collision)
+     {
+         Debug.Log(collision.gameObject.tag);
+         if (collision.gameObject.CompareTag("Cubo"))
+         {
+             Destroy(collision.gameObject);
+             vidas--;
+         }
+         else if (collision.gameObject.CompareTag("Vida"))
+         {
+             Destroy(collision.gameObject);
+             vidas++;
+         }
+         ActualizarVidas(vidas);
+     }*/
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Cubo"))
+        if (other.gameObject.CompareTag("Cubo"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             vidas--;
         }
-        else if (collision.gameObject.CompareTag("Vida"))
+        else if (other.gameObject.CompareTag("Vida"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             vidas++;
         }
         ActualizarVidas(vidas);

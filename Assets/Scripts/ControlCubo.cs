@@ -5,20 +5,26 @@ using UnityEngine;
 public class ControlCubo : MonoBehaviour
 {
     public int puntosOtorgados;
+    private Rigidbody cuboRb;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        cuboRb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(-Vector3.forward * Time.deltaTime * (PlayerController.instance.puntuacion/10));
-        if (transform.position.z < -5 )
+        if (PlayerController.instance.vidas > 0)
         {
-            OtorgarPuntos();
+            //cuboRb.AddForce(-Vector3.forward * Time.deltaTime * ((PlayerController.instance.puntuacion / 20) + 1));
+            transform.Translate(-Vector3.forward * Time.deltaTime * (PlayerController.instance.puntuacion / 20 + 1));
+            if (transform.position.z < -5)
+            {
+                OtorgarPuntos();
+            }
+
         }
     }
     private void OtorgarPuntos()
