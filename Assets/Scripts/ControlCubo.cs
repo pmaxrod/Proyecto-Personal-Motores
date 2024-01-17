@@ -15,7 +15,8 @@ public class ControlCubo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.z < -5 )
+        transform.Translate(-Vector3.forward * Time.deltaTime * (PlayerController.instance.puntuacion/10));
+        if (transform.position.z < -5 )
         {
             OtorgarPuntos();
         }

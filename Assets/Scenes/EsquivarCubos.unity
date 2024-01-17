@@ -933,6 +933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2139193290}
   - component: {fileID: 2139193291}
+  - component: {fileID: 2139193292}
   m_Layer: 0
   m_Name: DatosJuego
   m_TagString: Untagged
@@ -970,6 +971,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubo: {fileID: 129290334256596256, guid: d4e9201d458892e459d06193bf796c4e, type: 3}
   tiempoGeneracion: 2
+--- !u!114 &2139193292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139193289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaca6e27bf81ebe439e53e3b9eabf91c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objetos:
+  - {fileID: 4198374033699562528, guid: 469efc93d3aad8d4294cf36881c7e058, type: 3}
+  tiempoGeneracion: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
