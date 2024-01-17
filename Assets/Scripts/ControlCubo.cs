@@ -5,7 +5,7 @@ using UnityEngine;
 public class ControlCubo : MonoBehaviour
 {
     public int puntosOtorgados;
-    public float velocidad;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,8 +15,6 @@ public class ControlCubo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(-Vector3.forward * Time.deltaTime * velocidad);
-
         if(transform.position.z < -5 )
         {
             OtorgarPuntos();

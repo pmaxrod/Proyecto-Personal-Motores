@@ -71,8 +71,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(collision.gameObject);
-        vidas--;
+        if (collision.gameObject.CompareTag("Cubo"))
+        {
+            Destroy(collision.gameObject);
+            vidas--;
+        }
+        else if (collision.gameObject.CompareTag("Vida"))
+        {
+            Destroy(collision.gameObject);
+            vidas++;
+        }
         ActualizarVidas(vidas);
     }
 

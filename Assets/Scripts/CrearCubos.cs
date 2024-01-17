@@ -16,7 +16,7 @@ public class CrearCubos : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("GenerarCubo", 2, tiempoGeneracion);
+        InvokeRepeating("GenerarCubo", 2, tiempoGeneracion/PlayerController.instance.puntuacion);
     }
 
     // Update is called once per frame
