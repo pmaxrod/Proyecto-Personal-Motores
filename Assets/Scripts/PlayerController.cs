@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private float verticalBound = 5f;
 
     private string PLAYER_GAMEOBJECT_NAME = "Esfera";
+    private float TOTAL_VIDAS = 5;
 
     public static PlayerController instance;
     // Start is called before the first frame update
@@ -95,7 +96,7 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
             vidas--;
         }
-        else if (other.gameObject.CompareTag("Vida"))
+        else if (other.gameObject.CompareTag("Vida") && vidas < TOTAL_VIDAS)
         {
             Destroy(other.gameObject);
             vidas++;
@@ -105,10 +106,10 @@ public class PlayerController : MonoBehaviour
 
     public void ActualizarVidas(int vidasActuales)
     {
-        textoVidasRestantes.text = "Vidas: " + vidasActuales;
+        textoVidasRestantes.text = $"Vidas: {vidasActuales}/{TOTAL_VIDAS}";
     }
     public void ActualizarPuntuacion(int puntuacionActual)
     {
-        textoPuntuacion.text = "Puntuación: " + puntuacionActual;
+        textoPuntuacion.text = "Puntos: " + puntuacionActual;
     }
 }

@@ -17,7 +17,7 @@ public class CrearCubos : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("GenerarCubo", 2, tiempoGeneracion * ((PlayerController.instance.puntuacion / 100) + 1));
+        InvokeRepeating("GenerarCubo", 2, tiempoGeneracion);
         InvokeRepeating("GenerarVida", 20, tiempoGeneracion * 10);
     }
 
@@ -37,8 +37,18 @@ public class CrearCubos : MonoBehaviour
         float posicionX = random.Next(-limiteX, limiteX + 1);
         int tamano = random.Next(0, tamanosCubo.Length);
 
+        if (posicionX <= 0)
+        {
+            posicionX += tamano;
+        }
+        else
+        {
+            posicionX -= tamano;
+
+        }
+
         cubo.transform.position = new Vector3(posicionX, 0, limiteZ);
-        cubo.transform.localScale *= tamanosCubo[tamano];
+        cubo.transform.localScale = Vector3.one * tamanosCubo[tamano];
 
         Instantiate(cubo);
     }

@@ -19,7 +19,7 @@ public class ControlCubo : MonoBehaviour
         if (PlayerController.instance.vidas > 0)
         {
             //cuboRb.AddForce(-Vector3.forward * Time.deltaTime * ((PlayerController.instance.puntuacion / 20) + 1));
-            transform.Translate(-Vector3.forward * Time.deltaTime * (PlayerController.instance.puntuacion / 20 + 1));
+            transform.Translate(-Vector3.forward * Time.deltaTime * (PlayerController.instance.puntuacion / 100 + 1));
             if (transform.position.z < -5)
             {
                 OtorgarPuntos();
