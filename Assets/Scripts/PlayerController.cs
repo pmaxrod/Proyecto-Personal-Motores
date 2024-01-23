@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.TerrainTools;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public TMP_Text textoPuntuacion;
     public TMP_Text textoVidasRestantes;
     private Rigidbody playerRb;
+    private Material material;
 
     private float horizontalInput;
     private float horizontalBound = 10f;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerRb = GameObject.Find(PLAYER_GAMEOBJECT_NAME).GetComponent<Rigidbody>();
+        material = gameObject.GetComponent<Renderer>().material;
         instance = this;
         ActualizarVidas(vidas);
         ActualizarPuntuacion(puntuacion);
@@ -36,20 +39,24 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MovePlayer();
+        if (vidas > 0)
+        {
+            MovePlayer();
+        }
+        else
+        {
+            SceneManager.LoadScene("FinDeJuego");
+        }
     }
 
     private void MovePlayer()
     {
-        if (vidas > 0)
-        {
-            horizontalInput = Input.GetAxis("Horizontal");
-            verticalInput = Input.GetAxis("Vertical");
-            //playerRb.AddForce(Vector3.right * speed * horizontalInput * Time.deltaTime);
-            transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
-            transform.Translate(Vector3.forward * speed * verticalInput * Time.deltaTime);
-            ConstrainPlayerPosition();
-        }
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+        //playerRb.AddForce(Vector3.right * speed * horizontalInput * Time.deltaTime);
+        transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
+        transform.Translate(Vector3.forward * speed * verticalInput * Time.deltaTime);
+        ConstrainPlayerPosition();
     }
 
     private void ConstrainPlayerPosition()
@@ -107,9 +114,23 @@ public class PlayerController : MonoBehaviour
     public void ActualizarVidas(int vidasActuales)
     {
         textoVidasRestantes.text = $"Vidas: {vidasActuales}/{TOTAL_VIDAS}";
+        CambiarColorVidas();
     }
     public void ActualizarPuntuacion(int puntuacionActual)
     {
         textoPuntuacion.text = "Puntos: " + puntuacionActual;
+    }
+
+    private void CambiarColorVidas()
+    {
+        switch (vidas)
+        {
+            case int n when (n <= 1):
+                material.SetColor("_Color", Color.red); break; // _Color es el nombre de la propiedad
+            case int n when (n <= 5 && n >= 2):
+                material.SetColor("_Color", Color.blue); break;
+            default:
+                break;
+        }
     }
 }
