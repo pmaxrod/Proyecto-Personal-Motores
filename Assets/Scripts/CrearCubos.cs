@@ -13,12 +13,14 @@ public class CrearCubos : MonoBehaviour
     private int limiteX = 10;
     private int limiteZ = 5;
     private float[] tamanosCubo = { 0.4f, 0.6f, 0.8f, 1f, 1.2f, 1.4f };
+    private float modificadorTiempo = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("GenerarCubo", 2, tiempoGeneracion);
-        InvokeRepeating("GenerarVida", 20, tiempoGeneracion * 10);
+        modificadorTiempo = ModificadorTiempoGeneracion();
+        InvokeRepeating("GenerarCubo", 2, tiempoGeneracion / modificadorTiempo);
+        InvokeRepeating("GenerarVida", 20, tiempoGeneracion * modificadorTiempo);
     }
 
     // Update is called once per frame
@@ -62,5 +64,20 @@ public class CrearCubos : MonoBehaviour
         vida.transform.position = new Vector3(posicionX, 0, 0);
         Instantiate(vida);
 
+    }
+
+    private float ModificadorTiempoGeneracion()
+    {
+
+        switch (ControlDificultad.instance.dificultad)
+        {
+            case 0:
+                return 0.5f;
+            case 1:
+                return 1f;
+            case 2:
+                return 2f;
+            default: return 1;
+        }
     }
 }
