@@ -14,14 +14,18 @@ public class PlayerController : MonoBehaviour
 
     public TMP_Text textoPuntuacion;
     public TMP_Text textoVidasRestantes;
+    public bool invencible;
+
     private Rigidbody playerRb;
     private Material material;
 
+    // Limites
     private float horizontalInput;
     private float horizontalBound = 10f;
     private float verticalInput;
     private float verticalBound = 5f;
 
+    // Constantes
     private string PLAYER_GAMEOBJECT_NAME = "Esfera";
     private float TOTAL_VIDAS = 5;
 
@@ -53,7 +57,6 @@ public class PlayerController : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-        //playerRb.AddForce(Vector3.right * speed * horizontalInput * Time.deltaTime);
         transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
         transform.Translate(Vector3.forward * speed * verticalInput * Time.deltaTime);
         ConstrainPlayerPosition();
@@ -80,35 +83,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /* private void OnCollisionEnter(Collision collision)
-     {
-         Debug.Log(collision.gameObject.tag);
-         if (collision.gameObject.CompareTag("Cubo"))
-         {
-             Destroy(collision.gameObject);
-             vidas--;
-         }
-         else if (collision.gameObject.CompareTag("Vida"))
-         {
-             Destroy(collision.gameObject);
-             vidas++;
-         }
-         ActualizarVidas(vidas);
-     }*/
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Cubo"))
+        if (other.gameObject.CompareTag("Cubo") && !invencible)
         {
             Destroy(other.gameObject);
             vidas--;
+            ActualizarVidas(vidas);
         }
+
         else if (other.gameObject.CompareTag("Vida") && vidas < TOTAL_VIDAS)
         {
             Destroy(other.gameObject);
             vidas++;
+            ActualizarVidas(vidas);
         }
-        ActualizarVidas(vidas);
+
+        else if (other.gameObject.CompareTag("Invencibilidad") && !invencible)
+        {
+            Destroy(other.gameObject);
+            invencible = true;
+            material.SetColor("_Color", Color.yellow);
+            StartCoroutine(InvencibleCountdownRoutine());
+        }
     }
 
     public void ActualizarVidas(int vidasActuales)
@@ -116,6 +113,7 @@ public class PlayerController : MonoBehaviour
         textoVidasRestantes.text = $"Vidas: {vidasActuales}/{TOTAL_VIDAS}";
         CambiarColorVidas();
     }
+
     public void ActualizarPuntuacion(int puntuacionActual)
     {
         textoPuntuacion.text = "Puntos: " + puntuacionActual;
@@ -125,12 +123,19 @@ public class PlayerController : MonoBehaviour
     {
         switch (vidas)
         {
-            case int n when (n <= 1):
+            case int n when (n <= 1) && !invencible:
                 material.SetColor("_Color", Color.red); break; // _Color es el nombre de la propiedad
-            case int n when (n <= 5 && n >= 2):
+            case int n when (n <= 5 && n >= 2) && !invencible:
                 material.SetColor("_Color", Color.blue); break;
             default:
                 break;
         }
+    }
+
+    IEnumerator InvencibleCountdownRoutine()
+    {
+        yield return new WaitForSeconds(20);
+        invencible = false;
+        CambiarColorVidas();
     }
 }

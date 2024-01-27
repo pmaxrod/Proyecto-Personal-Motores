@@ -971,6 +971,7 @@ MonoBehaviour:
   cubo: {fileID: 129290334256596256, guid: d4e9201d458892e459d06193bf796c4e, type: 3}
   objetos:
   - {fileID: 4198374033699562528, guid: 469efc93d3aad8d4294cf36881c7e058, type: 3}
+  - {fileID: 1154609012677289117, guid: ca6121e4deaec2948ba60a46294d9c22, type: 3}
   tiempoGenCubo: 2
   tiempoGenObjeto: 4
 --- !u!1660057539 &9223372036854775807

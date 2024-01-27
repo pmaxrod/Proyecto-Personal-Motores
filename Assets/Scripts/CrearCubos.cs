@@ -11,7 +11,7 @@ public class CrearCubos : MonoBehaviour
     public float tiempoGenCubo;
     public float tiempoGenObjeto;
 
-    private int limiteX = 10;
+    private int limiteX = 8;
     private int limiteZ = 5;
     private float[] tamanosCubo = { 0.4f, 0.6f, 0.8f, 1f, 1.2f, 1.4f };
     private float modificadorTiempo = 0;
@@ -21,7 +21,7 @@ public class CrearCubos : MonoBehaviour
     {
         modificadorTiempo = ModificadorTiempoGeneracion();
         InvokeRepeating("GenerarCubo", 2, tiempoGenCubo / modificadorTiempo);
-        InvokeRepeating("GenerarObjeto", 20, tiempoGenObjeto * modificadorTiempo);
+        InvokeRepeating("GenerarObjeto", 6, tiempoGenObjeto * modificadorTiempo);
     }
 
     // Update is called once per frame
@@ -39,16 +39,6 @@ public class CrearCubos : MonoBehaviour
 
         float posicionX = random.Next(-limiteX, limiteX + 1);
         int tamano = random.Next(0, tamanosCubo.Length);
-
-        if (posicionX <= 0)
-        {
-            posicionX += tamano;
-        }
-        else
-        {
-            posicionX -= tamano;
-
-        }
 
         cubo.transform.position = new Vector3(posicionX, 0, limiteZ);
         cubo.transform.localScale = Vector3.one * tamanosCubo[tamano];

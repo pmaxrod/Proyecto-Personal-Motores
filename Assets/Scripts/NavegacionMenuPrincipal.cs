@@ -5,39 +5,55 @@ using UnityEngine.SceneManagement;
 
 public class NavegacionMenuPrincipal : MonoBehaviour
 {
-    [SerializeField] private GameObject panelMenuPrincipal;
-    [SerializeField] private GameObject panelMenuCreditos;
+    public GameObject panelMenuPrincipal;
+    public GameObject panelMenuCreditos;
+    public GameObject panelMenuTutorial;
+
+    private GameObject[] paneles;
 
     // Start is called before the first frame update
     void Start()
     {
+        paneles = new GameObject[] { panelMenuPrincipal, panelMenuCreditos, panelMenuTutorial };
         MenuPrincipal();
     }
 
     // Update is called once per frame
     void Update()
-    {        
-    }
-
-    private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
     }
 
     public void MenuCreditos()
     {
-        panelMenuPrincipal.SetActive(false);
-        panelMenuCreditos.SetActive(true);
+        ActivarPanel(panelMenuCreditos);
+        // panelMenuPrincipal.SetActive(false);
+        // panelMenuCreditos.SetActive(true);
     }
 
     public void MenuPrincipal()
     {
-        panelMenuCreditos.SetActive(false);
-        panelMenuPrincipal.SetActive(true);
+        ActivarPanel(panelMenuPrincipal);
+        // panelMenuCreditos.SetActive(false);
+        // panelMenuPrincipal.SetActive(true);
+    }
+
+    public void MenuTutorial()
+    {
+        ActivarPanel(panelMenuTutorial);
     }
 
     public void MenuJuego()
     {
         SceneManager.LoadScene("EsquivarCubos");
+    }
+
+    private void ActivarPanel(GameObject panel)
+    {
+        foreach (GameObject p in paneles)
+        {
+            p.SetActive(false);
+        }
+
+        panel.SetActive(true);
     }
 }

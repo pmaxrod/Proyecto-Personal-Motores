@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Cubo
   - Vida
+  - Invencibilidad
   layers:
   - Default
   - TransparentFX
