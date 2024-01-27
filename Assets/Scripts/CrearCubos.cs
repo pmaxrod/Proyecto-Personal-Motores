@@ -7,8 +7,9 @@ using UnityEngine;
 public class CrearCubos : MonoBehaviour
 {
     public GameObject cubo;
-    public GameObject vida;
-    public float tiempoGeneracion;
+    public GameObject[] objetos;
+    public float tiempoGenCubo;
+    public float tiempoGenObjeto;
 
     private int limiteX = 10;
     private int limiteZ = 5;
@@ -19,8 +20,8 @@ public class CrearCubos : MonoBehaviour
     void Start()
     {
         modificadorTiempo = ModificadorTiempoGeneracion();
-        InvokeRepeating("GenerarCubo", 2, tiempoGeneracion / modificadorTiempo);
-        InvokeRepeating("GenerarVida", 20, tiempoGeneracion * modificadorTiempo);
+        InvokeRepeating("GenerarCubo", 2, tiempoGenCubo / modificadorTiempo);
+        InvokeRepeating("GenerarObjeto", 20, tiempoGenObjeto * modificadorTiempo);
     }
 
     // Update is called once per frame
@@ -55,14 +56,16 @@ public class CrearCubos : MonoBehaviour
         Instantiate(cubo);
     }
 
-    private void GenerarVida()
+    private void GenerarObjeto()
     {
         System.Random random = new System.Random();
 
         float posicionX = random.Next(-limiteX, limiteX + 1);
+        int indice = random.Next(0, objetos.Length);
 
-        vida.transform.position = new Vector3(posicionX, 0, 0);
-        Instantiate(vida);
+        objetos[indice].transform.position = new Vector3(posicionX, 0, limiteZ);
+
+        Instantiate(objetos[indice]);
 
     }
 

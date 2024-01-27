@@ -948,8 +948,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139193289}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -969,15 +969,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubo: {fileID: 129290334256596256, guid: d4e9201d458892e459d06193bf796c4e, type: 3}
-  vida: {fileID: 4198374033699562528, guid: 469efc93d3aad8d4294cf36881c7e058, type: 3}
-  tiempoGeneracion: 2
+  objetos:
+  - {fileID: 4198374033699562528, guid: 469efc93d3aad8d4294cf36881c7e058, type: 3}
+  tiempoGenCubo: 2
+  tiempoGenObjeto: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
+  - {fileID: 2139193290}
   - {fileID: 947789817}
   - {fileID: 1766051921}
-  - {fileID: 2139193290}
   - {fileID: 2124087841}

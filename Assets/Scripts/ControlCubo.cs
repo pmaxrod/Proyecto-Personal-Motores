@@ -28,10 +28,15 @@ public class ControlCubo : MonoBehaviour
 
         }
     }
+
     private void OtorgarPuntos()
     {
         Destroy(gameObject);
-        PlayerController.instance.puntuacion += puntosOtorgados;
+
+        int multi = ControlDificultad.instance.dificultad == 0 ? 2 : 1;
+
+        PlayerController.instance.puntuacion += (multi * puntosOtorgados);
+  
         PlayerController.instance.ActualizarPuntuacion(PlayerController.instance.puntuacion);
     }
 }
