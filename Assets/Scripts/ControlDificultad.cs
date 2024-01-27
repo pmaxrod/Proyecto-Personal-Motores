@@ -6,7 +6,7 @@ public class ControlDificultad : MonoBehaviour
 {
     public int dificultad = 0;
     public static ControlDificultad instance;
-    [SerializeField] private Button[] botones;
+    public Button[] botones;
     // Start is called before the first frame update
     void Start()
     {

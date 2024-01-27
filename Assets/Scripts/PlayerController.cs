@@ -11,10 +11,13 @@ public class PlayerController : MonoBehaviour
     public float speed = 5.0f;
     public int vidas;
     public int puntuacion;
+    public bool invencible;
+    public bool puntosDobles;
 
     public TMP_Text textoPuntuacion;
     public TMP_Text textoVidasRestantes;
-    public bool invencible;
+    public TMP_Text textoInvencible;
+    public TMP_Text textoPuntosDobles;
 
     private Rigidbody playerRb;
     private Material material;
@@ -38,6 +41,8 @@ public class PlayerController : MonoBehaviour
         instance = this;
         ActualizarVidas(vidas);
         ActualizarPuntuacion(puntuacion);
+        ActualizarTextoInvencible();
+        ActualizarTextoPuntosDobles();
     }
 
     // Update is called once per frame
@@ -104,7 +109,17 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
             invencible = true;
             material.SetColor("_Color", Color.yellow);
+            ActualizarTextoInvencible();
             StartCoroutine(InvencibleCountdownRoutine());
+        }
+
+        else if (other.gameObject.CompareTag("PuntosDobles") && !puntosDobles)
+        {
+            Destroy(other.gameObject);
+            puntosDobles = true;
+            material.SetColor("_Color", Color.cyan);
+            ActualizarTextoPuntosDobles();
+            StartCoroutine(DoubleCountdownRoutine());
         }
     }
 
@@ -116,16 +131,28 @@ public class PlayerController : MonoBehaviour
 
     public void ActualizarPuntuacion(int puntuacionActual)
     {
-        textoPuntuacion.text = "Puntos: " + puntuacionActual;
+        textoPuntuacion.text = $"Puntos: {puntuacionActual}";
+    }
+
+    public void ActualizarTextoInvencible()
+    {
+        string txt = invencible ? "Sí" : "No";
+        textoInvencible.text = $"Invencible: {txt}";
+    }
+
+    public void ActualizarTextoPuntosDobles()
+    {
+        string txt = puntosDobles ? "Sí" : "No";
+        textoPuntosDobles.text = $"Puntos Dobles: {txt}";
     }
 
     private void CambiarColorVidas()
     {
         switch (vidas)
         {
-            case int n when (n <= 1) && !invencible:
+            case int n when (n <= 1) && !invencible && !puntosDobles:
                 material.SetColor("_Color", Color.red); break; // _Color es el nombre de la propiedad
-            case int n when (n <= 5 && n >= 2) && !invencible:
+            case int n when (n <= 5 && n >= 2) && !invencible && !puntosDobles:
                 material.SetColor("_Color", Color.blue); break;
             default:
                 break;
@@ -134,8 +161,17 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator InvencibleCountdownRoutine()
     {
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(10);
         invencible = false;
         CambiarColorVidas();
+        ActualizarTextoInvencible();
+    }
+
+    IEnumerator DoubleCountdownRoutine()
+    {
+        yield return new WaitForSeconds(10);
+        puntosDobles = false;
+        CambiarColorVidas();
+        ActualizarTextoPuntosDobles();
     }
 }
